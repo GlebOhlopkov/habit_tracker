@@ -19,7 +19,7 @@ class Habit(models.Model):
     nice_habit = models.ForeignKey('self', on_delete=models.SET_NULL, null=True, blank=True, verbose_name='nice_habit')
     period = models.CharField(max_length=20, choices=PERIOD_OF_HABIT, default='DAY', verbose_name='period')
     reward = models.CharField(max_length=200, verbose_name='reward')
-    duration = models.DurationField(default=timedelta(minutes=5), verbose_name='duration')
+    duration = models.DurationField(default=timedelta(minutes=2), verbose_name='duration')
     is_public = models.BooleanField(default=False, verbose_name='is_public')
 
     def __str__(self):
