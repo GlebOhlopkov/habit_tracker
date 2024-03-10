@@ -15,7 +15,7 @@ class Habit(models.Model):
     place = models.CharField(max_length=200, verbose_name='place')
     time = models.TimeField(verbose_name='time')
     action = models.CharField(max_length=200, verbose_name='action')
-    is_nice_habit = models.BooleanField(null=True, blank=True, verbose_name='is_nice_habit')
+    is_nice_habit = models.BooleanField(default=False, verbose_name='is_nice_habit')
     nice_habit = models.ForeignKey('self', on_delete=models.SET_NULL, null=True, blank=True, verbose_name='nice_habit')
     period = models.CharField(max_length=20, choices=PERIOD_OF_HABIT, default='DAY', verbose_name='period')
     reward = models.CharField(max_length=200, null=True, blank=True, verbose_name='reward')
