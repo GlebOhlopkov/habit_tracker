@@ -69,7 +69,7 @@ class HabitAPITest(APITestCase):
         }
 
         response = self.client.patch(
-            '/habit/update/1/',
+            '/habit/update/5/',
             data=update_data
         )
 
@@ -80,15 +80,15 @@ class HabitAPITest(APITestCase):
 
         self.assertEquals(
             response.json(),
-            {'id': 1, 'place': 'test_place', 'time': '12:00:00', 'action': 'update_action', 'is_nice_habit': False,
-             'period': 'HOUR', 'reward': 'test_reward', 'duration': '00:01:00', 'is_public': False, 'owner': 3,
+            {'id': 5, 'place': 'test_place', 'time': '12:00:00', 'action': 'update_action', 'is_nice_habit': False,
+             'period': 'HOUR', 'reward': 'test_reward', 'duration': '00:01:00', 'is_public': False, 'owner': 4,
              'nice_habit': None}
 
         )
 
     def test_delete_habit(self):
         response = self.client.delete(
-            '/habit/delete/1/'
+            '/habit/delete/3/'
         )
 
         self.assertEquals(
