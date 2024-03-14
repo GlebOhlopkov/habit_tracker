@@ -8,8 +8,8 @@ from habit.models import Habit
 class RewardOrNiceHabitValidator:
 
     def __call__(self, value):
-        nice_habit = bool(dict(value).get('nice_habit'))
-        reward = bool(dict(value).get('reward'))
+        nice_habit = value.get('nice_habit')
+        reward = value.get('reward')
 
         if nice_habit and reward:
             raise serializers.ValidationError(
@@ -19,7 +19,7 @@ class RewardOrNiceHabitValidator:
 class IsNiceHabitValidator:
 
     def __call__(self, value):
-        nice_habit = dict(value).get('nice_habit')
+        nice_habit = value.get('nice_habit')
         if nice_habit:
             habit = Habit.objects.get(pk=nice_habit.id)
             if not habit.is_nice_habit:
@@ -30,13 +30,22 @@ class IsNiceHabitValidator:
 class IsNiceHabitHaveRewardValidator:
 
     def __call__(self, value):
-        is_nice_habit = dict(value).get('is_nice_habit')
-        reward = bool(dict(value).get('reward'))
-        nice_habit = bool(dict(value).get('nice_habit'))
+        is_nice_habit = value.get('is_nice_habit')
+        reward = value.get('reward')
+        nice_habit = value.get('nice_habit')
 
         if is_nice_habit and reward or is_nice_habit and nice_habit:
             raise serializers.ValidationError(
                 'Nice habit cant have reward or another nice habit')
+
+
+class HabitDurationValidator:
+
+    def __call__(self, value):
+        duration = value.get('duration')
+        if duration > timedelta(minutes=2):
+            raise serializers.ValidationError(
+                'Habits action duration must be less than 2 min (120 sec)')
 
 # def validator_habit_fields(value):
 #     try:
